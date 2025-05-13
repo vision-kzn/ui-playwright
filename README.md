@@ -21,7 +21,7 @@ playwright install # Install playwright dependencies
 To run UI tests using pytest:
 
 ```shell
-pytest -m regression --numprocesses 2 # Run regression tests in parallel
+pytest -m regression
 ```
 
 ## Generating Allure Reports
