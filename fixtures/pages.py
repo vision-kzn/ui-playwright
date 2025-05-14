@@ -5,7 +5,8 @@ import pytest
 from playwright.sync_api import Playwright, Page, expect
 
 from config import Settings
-from pages.courses_page import CoursesPage
+from pages.courses.course_page import CoursePage
+from pages.courses.courses_page import CoursesPage
 from pages.dashboard_page import DashboardPage
 from pages.registration_page import RegistrationPage
 from tools.routes import AppRoute
@@ -44,6 +45,11 @@ def registration_page(chromium_page: Page) -> RegistrationPage:
 
 
 @pytest.fixture
+def course_page(chromium_page: Page) -> CoursePage:
+    return CoursePage(page=chromium_page)
+
+
+@pytest.fixture
 def courses_page(chromium_page: Page, registration_page: RegistrationPage, dashboard_page: DashboardPage):
     registration_page.visit(AppRoute.REGISTRATION)
     registration_page.registration_form.check_visible(email="", username="", password="")
@@ -53,8 +59,6 @@ def courses_page(chromium_page: Page, registration_page: RegistrationPage, dashb
         password="qwerty"
     )
     registration_page.click_registration_button()
-
-    dashboard_page.navbar.check_visible("Playwright")
 
     dashboard_page.navbar.check_visible("Playwright")
 
